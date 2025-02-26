@@ -21,4 +21,9 @@ public class BoardService {
         Comment comment = commentRepository.save(dto.toEntity(boardIdx));
         return comment.getIdx();
     }
+
+    public BoardDto.BoardDetailResp getBoard(Long idx) {
+        Board board = boardRepository.findById(idx).orElseThrow();
+        return BoardDto.BoardDetailResp.from(board);
+    }
 }
