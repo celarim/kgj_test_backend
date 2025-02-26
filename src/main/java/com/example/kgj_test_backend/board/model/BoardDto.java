@@ -21,4 +21,19 @@ public class BoardDto {
                     .build();
         }
     }
+
+    @Getter
+    public static class CommentRegisterReq {
+        @Schema(example = "댓글 내용 1")
+        private String content;
+        @Schema(example = "댓글 작성자 1")
+        private String writer;
+        public Comment toEntity(Long boardIdx) {
+            return Comment.builder()
+                    .content(content)
+                    .writer(writer)
+                    .board(Board.builder().idx(boardIdx).build())
+                    .build();
+        }
+    }
 }
