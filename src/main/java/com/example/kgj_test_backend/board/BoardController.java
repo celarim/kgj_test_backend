@@ -5,11 +5,12 @@ import com.example.kgj_test_backend.board.model.BoardDto;
 import com.example.kgj_test_backend.common.BaseResponse;
 import com.example.kgj_test_backend.common.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
+@Tag(name = "게시판 기능")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board")
@@ -38,7 +39,7 @@ public class BoardController {
         return ResponseEntity.ok(BaseResponse.success(dto));
     }
 
-    @Operation(summary = "게시글 목록 조회", description = "페이지와 페이지 크기를 입력받아 번호, 제목, 내용, 작성자, 댓글 수를 출력")
+    @Operation(summary = "게시글 목록 조회", description = "페이지와 페이지 크기를 입력받아 번호, 제목, 작성자, 댓글 수를 출력")
     @GetMapping("/list")
     public ResponseEntity<BaseResponse<PageResponse<BoardDto.BoardListInstanceResp>>> getList(Integer page, Integer size) {
         if (page == null || page < 0) {
