@@ -6,10 +6,7 @@ import com.example.kgj_test_backend.common.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -22,6 +19,14 @@ public class BoardController {
     @PostMapping("/create")
     public ResponseEntity<BaseResponse<Long>> createBoard(@RequestBody BoardDto.BoardRegisterReq dto) {
         Long idx = boardService.addBoard(dto);
+        return ResponseEntity.ok(BaseResponse.success(idx));
+    }
+
+    @Operation(summary = "댓글 작성", description = "내용, 작성자, 게시글 idx를 입력받아 게시글을 DB에 저장")
+    @PostMapping("comment/{boardIdx}")
+    public ResponseEntity<BaseResponse<Long>> createComment(@RequestBody BoardDto.CommentRegisterReq dto,
+                                                            @PathVariable Long boardIdx) {
+        Long idx = boardService.addComment(dto, boardIdx);
         return ResponseEntity.ok(BaseResponse.success(idx));
     }
 }
