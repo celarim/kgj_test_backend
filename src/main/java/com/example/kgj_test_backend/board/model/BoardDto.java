@@ -85,4 +85,26 @@ public class BoardDto {
             return comments.stream().map(CommentResp::from).collect(Collectors.toList());
         }
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class BoardListInstanceResp {
+        private Long idx;
+        private String title;
+        private String writer;
+        private Integer commentCount;
+        public static BoardListInstanceResp from(Board board) {
+            return BoardListInstanceResp.builder()
+                    .idx(board.getIdx())
+                    .title(board.getTitle())
+                    .writer(board.getWriter())
+                    .commentCount(board.getComments().size())
+                    .build();
+        }
+        public static List<BoardListInstanceResp> from (List<Board> boards) {
+            return boards.stream().map(BoardListInstanceResp::from).collect(Collectors.toList());
+        }
+    }
 }
